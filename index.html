@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校園網頁平台教學 | 活動報名</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Load Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Load Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>處理中，請稍候...</p>
+    </div>
+
+    <!-- Interactive Particle Background -->
+    <div id="particles-js" class="background-elements"></div>
+
+    <!-- Main Container for View Switching -->
+    <div class="app-container">
+        
+        <!-- View 1: Introduction -->
+        <div class="view-panel" id="view-intro">
+            <div class="intro-section glass-panel">
+                <div class="intro-content">
+                    <div class="badge">👨‍💻 技能培訓</div>
+                    <h1 class="intro-title glow-text">校園網頁平台教學</h1>
+                    <p class="intro-subtitle">結合 AI 工具提升網頁建置能力，輕鬆上手！</p>
+
+                    <div class="intro-blocks">
+                        <div class="info-block">
+                            <div class="icon">📋</div>
+                            <div class="text">
+                                <h3>課程內容</h3>
+                                <ul>
+                                    <li>網頁編輯器進階操作技巧</li>
+                                    <li><strong>結合 AI 工具加速網頁建置</strong></li>
+                                    <li>問卷工具應用（Microsoft Forms、Google 表單）</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="icon">📅</div>
+                            <div class="text">
+                                <h3>課程時間與地點（請擇一場次參加）</h3>
+                                <ul>
+                                    <li><strong>【校本部】科技大樓 03601 教室</strong><br>7/15 (三) 08:30-11:30 或 13:30-16:30</li>
+                                    <li><strong>【醫學校區】B 棟 3 樓 B0316 第一電腦教室</strong><br>7/16 (四) 08:30-11:30 或 13:30-16:30</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="icon">👥</div>
+                            <div class="text">
+                                <h3>參加對象</h3>
+                                <p>各行政單位及院、系所網站管理人員</p>
+                            </div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="icon">📞</div>
+                            <div class="text">
+                                <h3>聯絡資訊</h3>
+                                <p>圖書與資訊處 蔡振益（分機 2786）</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-actions">
+                        <button type="button" class="btn btn-primary btn-large" id="btnGoToForm">👉 我要報名</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 2: Form -->
+        <div class="view-panel hidden-view" id="view-form">
+            <div class="tilt-wrapper" id="tiltWrapper">
+                <div class="form-container" id="formContainer">
+                    <button type="button" class="btn-back" id="btnBackToIntro">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        返回介紹
+                    </button>
+                    
+                    <header class="form-header">
+                        <!-- Typing Animation Header -->
+                        <h1 class="typing-container">
+                            <span id="typewriter"></span><span class="cursor">_</span>
+                        </h1>
+                        <p class="fade-in-text">歡迎參加本次活動，請依照指示完成報名手續。</p>
+                    </header>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <div class="progress-steps">
+                            <div class="step active">1</div>
+                            <div class="step">2</div>
+                            <div class="step">3</div>
+                        </div>
+                    </div>
+
+                    <form id="registrationForm" class="registration-form">
+                        <!-- Step 1: Basic Info -->
+                        <div class="form-step form-step-active" data-step="1">
+                            <h2 class="step-title">步驟 1：基本資料</h2>
+                            <div class="form-group">
+                                <label for="name">姓名 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="請輸入您的真實姓名" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="unitType">單位類型 <span class="required">*</span></label>
+                                <select id="unitType" name="unitType" class="form-select" required>
+                                    <option value="" disabled selected>請選擇單位類型</option>
+                                    <option value="行政單位">行政單位</option>
+                                    <option value="學術單位">學術單位</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group hidden" id="collegeGroup">
+                                <label for="college">學院 <span class="required">*</span></label>
+                                <select id="college" name="college" class="form-select">
+                                    <option value="" disabled selected>請選擇學院</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group hidden" id="departmentGroup">
+                                <label id="departmentLabel" for="department">單位 / 系所 <span class="required">*</span></label>
+                                <select id="department" name="department" class="form-select">
+                                    <option value="" disabled selected>請選擇</option>
+                                </select>
+                            </div>
+                            <div class="step-actions right">
+                                <button type="button" class="btn btn-next">下一步 &rarr;</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Contact Info -->
+                        <div class="form-step" data-step="2">
+                            <h2 class="step-title">步驟 2：聯絡方式</h2>
+                            <div class="form-row">
+                                <div class="form-group half-width">
+                                    <label for="employeeId">職號 <span class="required">*</span></label>
+                                    <input type="text" id="employeeId" name="employeeId" placeholder="您的職工編號" style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase()" required>
+                                </div>
+                                <div class="form-group half-width">
+                                    <label for="extension">分機</label>
+                                    <div class="input-group">
+                                        <select id="campus" name="campus" class="form-select campus-select">
+                                            <option value="校本部">校本部</option>
+                                            <option value="醫學校區">醫學校區</option>
+                                        </select>
+                                        <input type="text" id="extension" name="extension" placeholder="例：1234">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">電子郵件 <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="example@company.com" required>
+                            </div>
+                            <div class="step-actions split">
+                                <button type="button" class="btn btn-prev">&larr; 上一步</button>
+                                <button type="button" class="btn btn-next">下一步 &rarr;</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Session Selection -->
+                        <div class="form-step" data-step="3">
+                            <h2 class="step-title">步驟 3：場次選擇</h2>
+                            <div class="form-group">
+                                <div class="radio-group-advanced">
+                                    <label class="radio-card-advanced">
+                                        <input type="radio" name="session" value="7/15_Morning" required>
+                                        <span class="card-content">
+                                            <div class="card-icon">☀️</div>
+                                            <span class="session-info">
+                                                <span class="session-title">7/15 (三) 校本部 上午場</span>
+                                                <span class="session-time">08:30 - 11:30<br>科技大樓 6樓 03601</span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <label class="radio-card-advanced">
+                                        <input type="radio" name="session" value="7/15_Afternoon" required>
+                                        <span class="card-content">
+                                            <div class="card-icon">🌇</div>
+                                            <span class="session-info">
+                                                <span class="session-title">7/15 (三) 校本部 下午場</span>
+                                                <span class="session-time">13:30 - 16:30<br>科技大樓 6樓 03601</span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <label class="radio-card-advanced">
+                                        <input type="radio" name="session" value="7/16_Morning" required>
+                                        <span class="card-content">
+                                            <div class="card-icon">🏥</div>
+                                            <span class="session-info">
+                                                <span class="session-title">7/16 (四) 醫學校區 上午場</span>
+                                                <span class="session-time">08:30 - 11:30<br>B棟 3樓 B0316 - 第一電腦教室</span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                    <label class="radio-card-advanced">
+                                        <input type="radio" name="session" value="7/16_Afternoon" required>
+                                        <span class="card-content">
+                                            <div class="card-icon">🌆</div>
+                                            <span class="session-info">
+                                                <span class="session-title">7/16 (四) 醫學校區 下午場</span>
+                                                <span class="session-time">13:30 - 16:30<br>B棟 3樓 B0316 - 第一電腦教室</span>
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="step-actions split">
+                                <button type="button" class="btn btn-prev">&larr; 上一步</button>
+                                <button type="submit" class="btn btn-submit" id="submitBtn">
+                                    <span>確認送出</span>
+                                    <div class="spinner"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <!-- Edit Dashboard -->
+                    <div id="editDashboard" class="edit-dashboard" style="display: none;">
+                        <div class="dashboard-header">
+                            <h2 id="dashboardGreeting">歡迎回來！</h2>
+                            <p>您可以在下方查看目前的報名資料，或直接選取新場次進行更換。</p>
+                        </div>
+                        
+                        <div class="dashboard-content">
+                            <!-- Info Card -->
+                            <div class="info-card">
+                                <h3>📋 基本資料 <span class="read-only-badge">唯讀</span></h3>
+                                <div class="info-list">
+                                    <div class="info-item">
+                                        <span class="info-label">姓名</span>
+                                        <span class="info-value" id="dispName"></span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">單位</span>
+                                        <span class="info-value" id="dispUnit"></span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">職號</span>
+                                        <span class="info-value" id="dispEmpId"></span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">聯絡方式</span>
+                                        <span class="info-value" id="dispContact"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Session Editor -->
+                            <div class="session-editor">
+                                <h3>🕒 場次變更</h3>
+                                <p class="help-text">您目前報名的場次會以 <span style="color:#f59e0b;font-weight:bold;">★ 目前選擇</span> 標示，若要更換，請點選其他場次並儲存。</p>
+                                
+                                <div class="radio-group-advanced" id="dashboardSessionGroup">
+                                    <!-- Options will be copied here by script.js -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-actions">
+                            <button type="button" class="btn btn-submit" id="btnSaveDashboard">
+                                <span>確認修改並儲存 &rarr;</span>
+                                <div class="spinner"></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="successMessage" class="success-message hidden">
+                        <div class="check-icon animated-check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <h2 class="glow-text">報名成功！</h2>
+                        <p>感謝您的報名，我們已將確認信寄至您的電子郵件。</p>
+                        <button id="resetBtn" class="reset-btn">重新報名</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="unitData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
